@@ -8,6 +8,15 @@ package wardView;
 import models.Model;
 import models.ModelSingleton;
 import utility.Patient;
+import utility.PatientData;
+import utility.RandomData;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -16,12 +25,61 @@ import utility.Patient;
 public class WardCellJPanel extends javax.swing.JPanel {
 
     private Patient patient;
+    private Timer timer;
+    private int timerSeconds;
 
     /**
      * Creates new form WardCellJPanel
      */
     public WardCellJPanel() {
         initComponents();
+        //set timer
+        timerSeconds = 0;
+        if (timer == null) {
+            timer = new Timer(100, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // do it every 1 second
+                    Calendar cal = Calendar.getInstance();
+                    cal.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+                    // do it every 5 seconds
+                    if (timerSeconds % 5 == 0) {
+                        //generate random value
+                        int br = RandomData.generateReading(Model.RESPIRATORY_RATE);
+                        int spo2 = RandomData.generateReading(Model.SPO2);
+                        float temp = RandomData.generateReading(Model.TEMPERATURE);
+                        int systolic = RandomData.generateReading(Model.SYSTOLIC);
+                        int hr = RandomData.generateReading(Model.HEART_RATE);
+
+                        PatientData patientData = new PatientData(0, br, spo2, temp, systolic, hr);
+                        setScore(patientData.getScore());
+                    }
+                    timerSeconds++;
+                }
+            });
+        }
+
+        if (!timer.isRunning()) {
+            timer.start();
+        }
+    }
+
+    /**
+     * Set the score colour and number in the view
+     */
+    public void setScore(int score) {
+        Color red = Color.RED;
+        Color green = Color.GREEN;
+        Color yellow = Color.YELLOW;
+
+        if(0 <= score && score <= 1){
+            colourSquare.setBackground(green);
+        }else if(2 <= score && score <= 3){
+            colourSquare.setBackground(yellow);
+        }else if(4 <= score){
+            colourSquare.setBackground(red);
+        }
     }
 
     public void setPatient(Patient patient){
@@ -56,7 +114,10 @@ public class WardCellJPanel extends javax.swing.JPanel {
         genderField = new javax.swing.JLabel();
         dobField = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        colourSquare = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         patientNameField.setText("jLabel");
 
@@ -76,16 +137,16 @@ public class WardCellJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("GENDER:");
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        colourSquare.setBackground(new java.awt.Color(0, 0, 0));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout colourSquareLayout = new javax.swing.GroupLayout(colourSquare);
+        colourSquare.setLayout(colourSquareLayout);
+        colourSquareLayout.setHorizontalGroup(
+            colourSquareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        colourSquareLayout.setVerticalGroup(
+            colourSquareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -112,7 +173,7 @@ public class WardCellJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(colourSquare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,11 +181,11 @@ public class WardCellJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(colourSquare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(patientNameField))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(patientNameField)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -149,6 +210,7 @@ public class WardCellJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bedNumField;
+    private javax.swing.JPanel colourSquare;
     private javax.swing.JLabel dobField;
     private javax.swing.JLabel genderField;
     private javax.swing.JLabel jLabel1;
@@ -156,7 +218,6 @@ public class WardCellJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel patientNameField;
     private javax.swing.JLabel wardNumField;
     // End of variables declaration//GEN-END:variables

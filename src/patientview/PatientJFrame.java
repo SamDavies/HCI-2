@@ -7,6 +7,7 @@ package patientview;
 import models.Model;
 import models.ModelSingleton;
 import utility.Patient;
+import utility.PatientData;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -19,6 +20,9 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+
+import utility.RandomData;
+import wardView.WardJFrame;
 
 /**
  *
@@ -66,12 +70,14 @@ public class PatientJFrame extends javax.swing.JFrame {
                     // do it every 5 seconds
                     if (timerSeconds % 5 == 0) {
                         //generate random value
-                        int br = generateReading(Model.RESPIRATORY_RATE);
-                        int spo2 = generateReading(Model.SPO2);
-                        float temp = generateReading(Model.TEMPERATURE);
-                        int systolic = generateReading(Model.SYSTOLIC);
-                        int hr = generateReading(Model.HEART_RATE);
-                        displayData(br,spo2,temp,systolic,hr);
+                        int br = RandomData.generateReading(Model.RESPIRATORY_RATE);
+                        int spo2 = RandomData.generateReading(Model.SPO2);
+                        float temp = RandomData.generateReading(Model.TEMPERATURE);
+                        int systolic = RandomData.generateReading(Model.SYSTOLIC);
+                        int hr = RandomData.generateReading(Model.HEART_RATE);
+
+                        PatientData patientData = new PatientData(0, br, spo2, temp, systolic, hr);
+                        displayData(patientData);
                     }
                     timerSeconds++;
                 }
@@ -93,21 +99,13 @@ public class PatientJFrame extends javax.swing.JFrame {
         genderField.setText(patient.getGender());
     }
 
-    private void displayData(int breathing, int oxygen, float temperature, int bloodPressure, int heartRate) {
-        breathingField.setText(Integer.toString(breathing));
-        oxygenField.setText(Integer.toString(oxygen));
-        temperatureField.setText(Float.toString(temperature));
-        bloodPressureField.setText(Integer.toString(bloodPressure));
-        heartRateField.setText(Integer.toString(heartRate));
+    private void displayData(PatientData patientData) {
+        breathingField.setText(Integer.toString(patientData.getBreathing()));
+        oxygenField.setText(Integer.toString(patientData.getOxygen()));
+        temperatureField.setText(Float.toString(patientData.getTemperature()));
+        bloodPressureField.setText(Integer.toString(patientData.getBloodPressure()));
+        heartRateField.setText(Integer.toString(patientData.getHeartRate()));
     }
-
-    /**
-     * Gives the score based on the breathing
-     * @param breathing the input brathing rate
-     * @return the score
-     */
-//    private int getBreatingScore(int breathing) {
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -381,10 +379,10 @@ public class PatientJFrame extends javax.swing.JFrame {
     private void jButton_changeViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_changeViewActionPerformed
         // TODO add your handling code here:
         //dispose current window
-        //this.dispose();
+        this.dispose();
         //open the Ward-View
-        //WardJFrame wardframe = new WardJFrame();
-        //wardframe.setVisible(true);
+        WardJFrame wardframe = new WardJFrame();
+        wardframe.setVisible(true);
     }//GEN-LAST:event_jButton_changeViewActionPerformed
 
     private void jButton_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exitActionPerformed
@@ -454,47 +452,6 @@ public class PatientJFrame extends javax.swing.JFrame {
 
             }
         });
-    }
-
-    /**
-     * Create a random int number
-     */
-    public int generateReading(int kind) {
-        Random random = new Random();
-        int returnReading = 0;
-        switch (kind) {
-            case 0: //Breathing Rate
-                returnReading = random.nextInt(35) + 5 + 1;
-                break;
-            case 1: //SPO2
-                returnReading = random.nextInt(20) + 80 + 1;
-                break;
-            case 2: //Blood Pressure - SYSTOLIC
-                returnReading = random.nextInt(150) + 60 + 1;
-                break;
-            case 3: //Heart Rate
-                returnReading = random.nextInt(20) + 140 + 1;
-                break;
-            default:
-                break;
-        }
-        return returnReading;
-    }
-
-    /**
-     * Create a random float number - body temp
-     */
-    public float generateReading(float kind) {
-        Random random = new Random();
-        return random.nextFloat() * 6 + 33;
-    }
-
-    /**
-     * Create a random int number in a range - you might want to use this for testing
-     */
-    public int generateReadingInRange(int lower, int upper) {
-        Random random = new Random();
-        return random.nextInt(upper - lower) + lower + 1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -21,9 +21,13 @@ public class Model {
 
     public int selectedPatient = 0;
 
-    protected Model() throws FileNotFoundException {
+    protected Model() {
         // read in all the data
-        this.getPatientList();
+        try {
+            this.getPatientList();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getPatientList() throws FileNotFoundException {

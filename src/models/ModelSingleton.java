@@ -1,7 +1,9 @@
 package models;
 
+import java.io.FileNotFoundException;
+
 /**
- * Created by samdavies on 05/11/2015.
+ * Created by Sam Davies on 05/11/2015.
  */
 public class ModelSingleton {
     private static Model instance = null;
