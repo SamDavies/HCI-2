@@ -4,6 +4,8 @@
  */
 package patientview;
 
+import models.Model;
+import models.ModelSingleton;
 import utility.Patient;
 
 import java.awt.Dimension;
@@ -31,15 +33,8 @@ public class PatientJFrame extends javax.swing.JFrame {
 
     private Timer timer;
     private int timerSeconds;
-    public static final int RESPIRATORY_RATE = 0;
-    public static final int SPO2 = 1;
-    public static final int SYSTOLIC = 2;
-    public static final int HEART_RATE = 3;
-    public static final float TEMPERATURE = 0f;
 
-    private ArrayList<Patient> patients = new ArrayList<Patient>();
-
-    private int selectedPatient = 0;
+    private Model model = ModelSingleton.getInstance();
 
     /**
      * Creates new form PatientJFrame
@@ -58,16 +53,16 @@ public class PatientJFrame extends javax.swing.JFrame {
         this.setLocation(x, y);
 
         // read in al the data
-        this.getPatientList();
+        model.getPatientList();
         // set the initial patient
-        this.setPatient(this.selectedPatient);
+        this.setPatient(model.selectedPatient);
 
         //set focus on exit button
         jButton_exit.requestFocus();
         //set timer
         timerSeconds = 0;
         if (timer == null) {
-            timer = new Timer(1000, new ActionListener() {
+            timer = new Timer(100, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // do it every 1 second
@@ -78,11 +73,11 @@ public class PatientJFrame extends javax.swing.JFrame {
                     // do it every 5 seconds
                     if (timerSeconds % 5 == 0) {
                         //generate random value
-                        int br = generateReading(RESPIRATORY_RATE);
-                        int spo2 = generateReading(SPO2);
-                        float temp = generateReading(TEMPERATURE);
-                        int systolic = generateReading(SYSTOLIC);
-                        int hr = generateReading(HEART_RATE);
+                        int br = generateReading(Model.RESPIRATORY_RATE);
+                        int spo2 = generateReading(Model.SPO2);
+                        float temp = generateReading(Model.TEMPERATURE);
+                        int systolic = generateReading(Model.SYSTOLIC);
+                        int hr = generateReading(Model.HEART_RATE);
                         displayData(br,spo2,temp,systolic,hr);
                     }
                     timerSeconds++;
@@ -95,21 +90,8 @@ public class PatientJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void getPatientList() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("data/patientList.csv"));
-        // skip the labels
-        scanner.nextLine();
-        while(scanner.hasNextLine()){
-            String line = scanner.nextLine();
-            String[] data = line.split(",");
-            Patient patient = new Patient(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], 0, 0, 0, 0);
-            patients.add(patient);
-        }
-        scanner.close();
-    }
-
     private void setPatient(int patientNumber) {
-        Patient patient = patients.get(patientNumber);
+        Patient patient = model.patients.get(patientNumber);
 
         patientNameField.setText(patient.getFistName() + " " + patient.getLastName());
         wardNumField.setText("W001");
@@ -420,19 +402,19 @@ public class PatientJFrame extends javax.swing.JFrame {
     private void nextPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPatientActionPerformed
         // TODO add your handling code here:
         // add 1
-        this.selectedPatient ++;
+        model.selectedPatient ++;
         // modulus 6
-        this.selectedPatient %= 6;
-        this.setPatient(this.selectedPatient);
+        model.selectedPatient %= 6;
+        this.setPatient(model.selectedPatient);
     }//GEN-LAST:event_nextPatientActionPerformed
 
     private void previousPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousPatientActionPerformed
         // TODO add your handling code here:
         // add 5
-        this.selectedPatient += 5;
+        model.selectedPatient += 5;
         // modulus 6
-        this.selectedPatient %= 6;
-        this.setPatient(this.selectedPatient);
+        model.selectedPatient %= 6;
+        this.setPatient(model.selectedPatient);
     }//GEN-LAST:event_previousPatientActionPerformed
 
     /**
