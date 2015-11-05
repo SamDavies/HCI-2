@@ -37,7 +37,9 @@ public class PatientJFrame extends javax.swing.JFrame {
     public static final int HEART_RATE = 3;
     public static final float TEMPERATURE = 0f;
 
-    private static ArrayList<Patient> patients = new ArrayList<Patient>();
+    private ArrayList<Patient> patients = new ArrayList<Patient>();
+
+    private int selectedPatient = 0;
 
     /**
      * Creates new form PatientJFrame
@@ -56,8 +58,9 @@ public class PatientJFrame extends javax.swing.JFrame {
         this.setLocation(x, y);
 
         // read in al the data
-        this.getCSVData();
-        this.setPatient(2);
+        this.getPatientList();
+        // set the initial patient
+        this.setPatient(this.selectedPatient);
 
         //set focus on exit button
         jButton_exit.requestFocus();
@@ -92,7 +95,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void getCSVData() throws FileNotFoundException {
+    private void getPatientList() throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("data/patientList.csv"));
         // skip the labels
         scanner.nextLine();
@@ -152,6 +155,8 @@ public class PatientJFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         heartRateField = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        nextPatient = new javax.swing.JButton();
+        previousPatient = new javax.swing.JButton();
         jPanel_buttons = new javax.swing.JPanel();
         jButton_exit = new javax.swing.JButton();
         jButton_changeView = new javax.swing.JButton();
@@ -192,6 +197,20 @@ public class PatientJFrame extends javax.swing.JFrame {
 
         jLabel11.setText("Heart rate:");
 
+        nextPatient.setText("Next Patient");
+        nextPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextPatientActionPerformed(evt);
+            }
+        });
+
+        previousPatient.setText("Previous Patient");
+        previousPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousPatientActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel_readingsLayout = new org.jdesktop.layout.GroupLayout(jPanel_readings);
         jPanel_readings.setLayout(jPanel_readingsLayout);
         jPanel_readingsLayout.setHorizontalGroup(
@@ -203,9 +222,16 @@ public class PatientJFrame extends javax.swing.JFrame {
                     .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jLabel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel_readingsLayout.createSequentialGroup()
+                        .add(13, 13, 13)
+                        .add(previousPatient)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel_readingsLayout.createSequentialGroup()
+                        .add(nextPatient)
+                        .add(0, 0, Short.MAX_VALUE))
                     .add(heartRateField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(bloodPressureField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(temperatureField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -236,7 +262,11 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel11)
                     .add(heartRateField))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 145, Short.MAX_VALUE)
+                .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(nextPatient)
+                    .add(previousPatient))
+                .add(47, 47, 47))
         );
 
         jButton_exit.setText("Exit");
@@ -347,7 +377,7 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
                     .add(genderField))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -386,6 +416,24 @@ public class PatientJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton_exitActionPerformed
+
+    private void nextPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPatientActionPerformed
+        // TODO add your handling code here:
+        // add 1
+        this.selectedPatient ++;
+        // modulus 6
+        this.selectedPatient %= 6;
+        this.setPatient(this.selectedPatient);
+    }//GEN-LAST:event_nextPatientActionPerformed
+
+    private void previousPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousPatientActionPerformed
+        // TODO add your handling code here:
+        // add 5
+        this.selectedPatient += 5;
+        // modulus 6
+        this.selectedPatient %= 6;
+        this.setPatient(this.selectedPatient);
+    }//GEN-LAST:event_previousPatientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -498,8 +546,10 @@ public class PatientJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_buttons;
     private javax.swing.JPanel jPanel_readings;
     private javax.swing.JPanel jPanel_title;
+    private javax.swing.JButton nextPatient;
     private javax.swing.JLabel oxygenField;
     private javax.swing.JLabel patientNameField;
+    private javax.swing.JButton previousPatient;
     private javax.swing.JLabel temperatureField;
     private javax.swing.JLabel wardNumField;
     // End of variables declaration//GEN-END:variables
