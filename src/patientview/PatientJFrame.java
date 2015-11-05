@@ -57,13 +57,8 @@ public class PatientJFrame extends javax.swing.JFrame {
 
         // read in al the data
         this.getCSVData();
+        this.setPatient(2);
 
-        //fill titles
-        patientNameField.setText("Alice Bailey");
-        wardNumField.setText("W001");
-        bedNumField.setText("1001");
-        dobField.setText("1958-10-12");
-        genderField.setText("F");
         //set focus on exit button
         jButton_exit.requestFocus();
         //set timer
@@ -98,19 +93,26 @@ public class PatientJFrame extends javax.swing.JFrame {
     }
 
     private void getCSVData() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("/Users/samdavies/Downloads/Coursework2/data/patientList.csv"));
+        Scanner scanner = new Scanner(new File("data/patientList.csv"));
         // skip the labels
         scanner.nextLine();
-        while(scanner.hasNext()){
+        while(scanner.hasNextLine()){
             String line = scanner.nextLine();
             String[] data = line.split(",");
-            Patient patient = new Patient(
-                    Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], Integer.parseInt(data[5]),
-                    Integer.parseInt(data[6]), Integer.parseInt(data[7]), Integer.parseInt(data[8])
-            );
+            Patient patient = new Patient(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], 0, 0, 0, 0);
             patients.add(patient);
         }
         scanner.close();
+    }
+
+    private void setPatient(int patientNumber) {
+        Patient patient = patients.get(patientNumber);
+
+        patientNameField.setText(patient.getFistName() + " " + patient.getLastName());
+        wardNumField.setText("W001");
+        bedNumField.setText(Integer.toString(patient.getBedNumber()));
+        dobField.setText(patient.getDOB());
+        genderField.setText(patient.getGender());
     }
 
     private void displayData(int breathing, int oxygen, float temperature, int bloodPressure, int heartRate) {
@@ -165,7 +167,6 @@ public class PatientJFrame extends javax.swing.JFrame {
         dobField = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         genderField = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         jLabel9.setText("jLabel9");
 
@@ -349,8 +350,6 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("jButton1");
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -358,8 +357,7 @@ public class PatientJFrame extends javax.swing.JFrame {
             .add(jPanel_title, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(jPanel_readings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(44, 44, 44)
-                .add(jButton1))
+                .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -367,11 +365,7 @@ public class PatientJFrame extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(jPanel_title, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel_readings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(layout.createSequentialGroup()
-                        .add(24, 24, 24)
-                        .add(jButton1)))
+                .add(jPanel_readings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -488,7 +482,6 @@ public class PatientJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel dobField;
     private javax.swing.JLabel genderField;
     private javax.swing.JLabel heartRateField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_changeView;
     private javax.swing.JButton jButton_exit;
     private javax.swing.JLabel jLabel1;
