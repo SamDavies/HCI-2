@@ -13,17 +13,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  *
@@ -52,10 +47,8 @@ public class PatientJFrame extends javax.swing.JFrame {
         //Move the window
         this.setLocation(x, y);
 
-        // read in al the data
-        model.getPatientList();
         // set the initial patient
-        this.setPatient(model.selectedPatient);
+        this.setPatientFields(model.selectedPatient);
 
         //set focus on exit button
         jButton_exit.requestFocus();
@@ -90,7 +83,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void setPatient(int patientNumber) {
+    private void setPatientFields(int patientNumber) {
         Patient patient = model.patients.get(patientNumber);
 
         patientNameField.setText(patient.getFistName() + " " + patient.getLastName());
@@ -405,7 +398,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         model.selectedPatient ++;
         // modulus 6
         model.selectedPatient %= 6;
-        this.setPatient(model.selectedPatient);
+        this.setPatientFields(model.selectedPatient);
     }//GEN-LAST:event_nextPatientActionPerformed
 
     private void previousPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousPatientActionPerformed
@@ -414,7 +407,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         model.selectedPatient += 5;
         // modulus 6
         model.selectedPatient %= 6;
-        this.setPatient(model.selectedPatient);
+        this.setPatientFields(model.selectedPatient);
     }//GEN-LAST:event_previousPatientActionPerformed
 
     /**

@@ -21,8 +21,9 @@ public class Model {
 
     public int selectedPatient = 0;
 
-    protected Model() {
-        // Exists only to defeat instantiation.
+    protected Model() throws FileNotFoundException {
+        // read in all the data
+        this.getPatientList();
     }
 
     public void getPatientList() throws FileNotFoundException {
