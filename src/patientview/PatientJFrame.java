@@ -75,7 +75,7 @@ public class PatientJFrame extends javax.swing.JFrame {
                         int systolic = RandomData.generateReading(Model.SYSTOLIC);
                         int hr = RandomData.generateReading(Model.HEART_RATE);
 
-                        PatientData patientData = new PatientData(0, br, spo2, temp, systolic, hr);
+                        PatientData patientData = new PatientData(br, spo2, temp, systolic, hr);
                         displayData(patientData);
                     }
                     timerSeconds++;
@@ -107,13 +107,27 @@ public class PatientJFrame extends javax.swing.JFrame {
 
         // oxygen
         oxygenField.setText(Integer.toString(patientData.getOxygen()));
-        Color yellow = new Color(250, 175, 65);
-        this.oxygenBar.setBarColour(yellow);
-        this.oxygenBar.setPercentage((int) (100*patientData.getBreathing()/105.0));
+        Color blue = new Color(65, 175, 250);
+        this.oxygenBar.setBarColour(blue);
+        this.oxygenBar.setPercentage((int) (100*patientData.getOxygen()/105.0));
 
-        temperatureField.setText(Float.toString(patientData.getTemperature()));
+        // temperature
+        temperatureField.setText(String.format("%.02f", patientData.getTemperature()));
+        Color yellow = new Color(250, 175, 65);
+        this.temperatureBar.setBarColour(yellow);
+        this.temperatureBar.setPercentage((int) (100*patientData.getTemperature()/45.0));
+
+        // blood
         bloodPressureField.setText(Integer.toString(patientData.getBloodPressure()));
+        Color green = new Color(175, 250, 65);
+        this.bloodBar.setBarColour(green);
+        this.bloodBar.setPercentage((int) (100*patientData.getBloodPressure()/210.0));
+
+        // heart
         heartRateField.setText(Integer.toString(patientData.getHeartRate()));
+        Color orange = new Color(175, 65, 250);
+        this.heartBar.setBarColour(orange);
+        this.heartBar.setPercentage((int) (100*patientData.getHeartRate()/170.0));
 
         this.repaint();
     }
@@ -142,6 +156,9 @@ public class PatientJFrame extends javax.swing.JFrame {
         breathingField = new javax.swing.JLabel();
         breathingBar = new patientview.FlatProgressBar();
         oxygenBar = new patientview.FlatProgressBar();
+        bloodBar = new patientview.FlatProgressBar();
+        temperatureBar = new patientview.FlatProgressBar();
+        heartBar = new patientview.FlatProgressBar();
         jPanel_buttons = new javax.swing.JPanel();
         jButton_exit = new javax.swing.JButton();
         jButton_changeView = new javax.swing.JButton();
@@ -171,35 +188,39 @@ public class PatientJFrame extends javax.swing.JFrame {
 
         oxygenField.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         oxygenField.setForeground(new java.awt.Color(242, 242, 242));
+        oxygenField.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         oxygenField.setText("oxygenField");
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(242, 242, 242));
         jLabel7.setText("Oxygen saturation");
 
-        temperatureField.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        temperatureField.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         temperatureField.setForeground(new java.awt.Color(242, 242, 242));
+        temperatureField.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         temperatureField.setText("temperatureField");
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel8.setText("Temperature:");
+        jLabel8.setText("Temperature");
 
-        bloodPressureField.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        bloodPressureField.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         bloodPressureField.setForeground(new java.awt.Color(242, 242, 242));
+        bloodPressureField.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         bloodPressureField.setText("bloodPressureField");
 
         jLabel10.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(242, 242, 242));
         jLabel10.setText("Systolic blood pressure:");
 
-        heartRateField.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        heartRateField.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         heartRateField.setForeground(new java.awt.Color(242, 242, 242));
+        heartRateField.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         heartRateField.setText("heartRateField");
 
         jLabel11.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel11.setText("Heart rate:");
+        jLabel11.setText("Heart rate");
 
         breathingLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         breathingLabel.setForeground(new java.awt.Color(242, 242, 242));
@@ -207,13 +228,14 @@ public class PatientJFrame extends javax.swing.JFrame {
 
         breathingField.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         breathingField.setForeground(new java.awt.Color(242, 242, 242));
+        breathingField.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         breathingField.setText("breathingField");
 
         org.jdesktop.layout.GroupLayout breathingBarLayout = new org.jdesktop.layout.GroupLayout(breathingBar);
         breathingBar.setLayout(breathingBarLayout);
         breathingBarLayout.setHorizontalGroup(
             breathingBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 191, Short.MAX_VALUE)
+            .add(0, 0, Short.MAX_VALUE)
         );
         breathingBarLayout.setVerticalGroup(
             breathingBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -224,10 +246,43 @@ public class PatientJFrame extends javax.swing.JFrame {
         oxygenBar.setLayout(oxygenBarLayout);
         oxygenBarLayout.setHorizontalGroup(
             oxygenBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 191, Short.MAX_VALUE)
+            .add(0, 0, Short.MAX_VALUE)
         );
         oxygenBarLayout.setVerticalGroup(
             oxygenBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 9, Short.MAX_VALUE)
+        );
+
+        org.jdesktop.layout.GroupLayout bloodBarLayout = new org.jdesktop.layout.GroupLayout(bloodBar);
+        bloodBar.setLayout(bloodBarLayout);
+        bloodBarLayout.setHorizontalGroup(
+            bloodBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 0, Short.MAX_VALUE)
+        );
+        bloodBarLayout.setVerticalGroup(
+            bloodBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 9, Short.MAX_VALUE)
+        );
+
+        org.jdesktop.layout.GroupLayout temperatureBarLayout = new org.jdesktop.layout.GroupLayout(temperatureBar);
+        temperatureBar.setLayout(temperatureBarLayout);
+        temperatureBarLayout.setHorizontalGroup(
+            temperatureBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 0, Short.MAX_VALUE)
+        );
+        temperatureBarLayout.setVerticalGroup(
+            temperatureBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 9, Short.MAX_VALUE)
+        );
+
+        org.jdesktop.layout.GroupLayout heartBarLayout = new org.jdesktop.layout.GroupLayout(heartBar);
+        heartBar.setLayout(heartBarLayout);
+        heartBarLayout.setHorizontalGroup(
+            heartBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 0, Short.MAX_VALUE)
+        );
+        heartBarLayout.setVerticalGroup(
+            heartBarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 9, Short.MAX_VALUE)
         );
 
@@ -239,30 +294,30 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel_readingsLayout.createSequentialGroup()
-                        .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(jLabel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(heartRateField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(bloodPressureField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(temperatureField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(heartRateField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(oxygenBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(temperatureBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel_readingsLayout.createSequentialGroup()
+                        .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(temperatureField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(bloodBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel_readingsLayout.createSequentialGroup()
+                        .add(jLabel10)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(bloodPressureField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(heartBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel_readingsLayout.createSequentialGroup()
                         .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel_readingsLayout.createSequentialGroup()
-                                    .add(breathingLabel)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(breathingField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(breathingBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jPanel_readingsLayout.createSequentialGroup()
-                                        .add(jLabel7)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(oxygenField))))
-                            .add(oxygenBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(0, 0, Short.MAX_VALUE)))
+                            .add(breathingLabel)
+                            .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, breathingField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 93, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, oxygenField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(breathingBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel_readingsLayout.setVerticalGroup(
@@ -280,19 +335,25 @@ public class PatientJFrame extends javax.swing.JFrame {
                     .add(oxygenField))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(oxygenBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 69, Short.MAX_VALUE)
+                .add(18, 18, 18)
                 .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
                     .add(temperatureField))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(temperatureBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10)
                     .add(bloodPressureField))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(bloodBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(jPanel_readingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel11)
                     .add(heartRateField))
-                .addContainerGap())
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(heartBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel_buttons.setBackground(new java.awt.Color(65, 65, 65));
@@ -320,7 +381,8 @@ public class PatientJFrame extends javax.swing.JFrame {
             .add(jPanel_buttonsLayout.createSequentialGroup()
                 .add(jButton_changeView, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton_exit, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jButton_exit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -328,7 +390,7 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .add(jPanel_buttonsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jButton_changeView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jButton_exit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(0, 6, Short.MAX_VALUE))
+                .add(0, 12, Short.MAX_VALUE))
         );
 
         jPanel_title.setBackground(new java.awt.Color(65, 65, 65));
@@ -447,15 +509,16 @@ public class PatientJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel_title, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel_readings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(previousPatient, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(275, 275, 275)
-                        .add(nextPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(jPanel_title, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel_readings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel1Layout.createSequentialGroup()
+                            .add(previousPatient, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(36, 36, 36)
+                            .add(nextPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -464,7 +527,7 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .add(jPanel_title, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel_readings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(73, 73, 73)
+                .add(67, 67, 67)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(previousPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(nextPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -477,7 +540,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -567,12 +630,14 @@ public class PatientJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bedNumField;
+    private patientview.FlatProgressBar bloodBar;
     private javax.swing.JLabel bloodPressureField;
     private patientview.FlatProgressBar breathingBar;
     private javax.swing.JLabel breathingField;
     private javax.swing.JLabel breathingLabel;
     private javax.swing.JLabel dobField;
     private javax.swing.JLabel genderField;
+    private patientview.FlatProgressBar heartBar;
     private javax.swing.JLabel heartRateField;
     private javax.swing.JButton jButton_changeView;
     private javax.swing.JButton jButton_exit;
@@ -595,6 +660,7 @@ public class PatientJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel oxygenField;
     private javax.swing.JLabel patientNameField;
     private javax.swing.JButton previousPatient;
+    private patientview.FlatProgressBar temperatureBar;
     private javax.swing.JLabel temperatureField;
     private javax.swing.JLabel wardNumField;
     // End of variables declaration//GEN-END:variables

@@ -8,16 +8,13 @@ import java.security.Timestamp;
  */
 public class PatientData {
 
-
-    private final int timestamp;
     private final int breathing;
     private final int oxygen;
     private final float temperature;
     private final int bloodPressure;
     private final int heartRate;
 
-    public PatientData(int timestamp, int breathing, int oxygen, float temperature, int bloodPressure, int heartRate) {
-        this.timestamp = timestamp;
+    public PatientData(int breathing, int oxygen, float temperature, int bloodPressure, int heartRate) {
         this.breathing = breathing;
         this.oxygen = oxygen;
         this.temperature = temperature;
@@ -98,10 +95,6 @@ public class PatientData {
         }
 
         return score;
-    }
-
-    public int getTimestamp() {
-        return timestamp;
     }
 
     public int getBreathing() {

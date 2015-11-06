@@ -53,7 +53,7 @@ public class WardCellJPanel extends javax.swing.JPanel {
                         int systolic = RandomData.generateReading(Model.SYSTOLIC);
                         int hr = RandomData.generateReading(Model.HEART_RATE);
 
-                        PatientData patientData = new PatientData(0, br, spo2, temp, systolic, hr);
+                        PatientData patientData = new PatientData(br, spo2, temp, systolic, hr);
                         int score = patientData.getScore();
                         setScore(score);
                         setNurseScore(score + nurseScore);
@@ -72,9 +72,9 @@ public class WardCellJPanel extends javax.swing.JPanel {
      * Set the score colour and number in the view
      */
     public void setScore(int score) {
-        Color red = Color.RED;
-        Color green = Color.GREEN;
-        Color yellow = Color.YELLOW;
+        Color red = new Color(250, 85, 65);;
+        Color green = new Color(175, 250, 65);
+        Color yellow = new Color(250, 175, 65);
 
         if(0 <= score && score <= 1){
             colourSquare.setBackground(green);
@@ -87,13 +87,13 @@ public class WardCellJPanel extends javax.swing.JPanel {
 
     public void setNurseScore(int score) {
         if(0 <= score && score <= 1){
-            statusText.setText("OK");
+            statusText.setText("<html>OK<html>");
         }else if(2 <= score && score <= 3){
-            statusText.setText("Continue routine observation");
+            statusText.setText("<html>Continue routine observation</html>");
         }else if(4 <= score && score <= 5){
-            statusText.setText("Involve the nurse-in-charge immediately");
+            statusText.setText("<html>Involve the nurse-in-charge immediately</html>");
         }else if(6 <= score){
-            statusText.setText("Call the registrar for immediate review");
+            statusText.setText("<html>Call the registrar for immediate review</html>");
         }
     }
 
@@ -133,39 +133,42 @@ public class WardCellJPanel extends javax.swing.JPanel {
         nurseRating = new javax.swing.JComboBox<>();
         statusText = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setBackground(new java.awt.Color(65, 65, 65));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
             }
         });
 
-        patientNameField.setForeground(new java.awt.Color(51, 51, 51));
+        patientNameField.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        patientNameField.setForeground(new java.awt.Color(242, 242, 242));
         patientNameField.setText("jLabel");
 
-        wardNumField.setForeground(new java.awt.Color(51, 51, 51));
+        wardNumField.setForeground(new java.awt.Color(242, 242, 242));
         wardNumField.setText("jLabel");
 
-        bedNumField.setForeground(new java.awt.Color(51, 51, 51));
+        bedNumField.setForeground(new java.awt.Color(242, 242, 242));
         bedNumField.setText("jLabel");
 
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("DoB:");
 
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setForeground(new java.awt.Color(242, 242, 242));
+
+        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
         jLabel2.setText("WARD:");
 
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setForeground(new java.awt.Color(242, 242, 242));
         jLabel3.setText("BED:");
 
-        genderField.setForeground(new java.awt.Color(51, 51, 51));
+        genderField.setForeground(new java.awt.Color(242, 242, 242));
         genderField.setText("jLabel");
 
-        dobField.setForeground(new java.awt.Color(51, 51, 51));
+        dobField.setForeground(new java.awt.Color(242, 242, 242));
         dobField.setText("jLabel");
 
-        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel5.setForeground(new java.awt.Color(242, 242, 242));
         jLabel5.setText("GENDER:");
 
         colourSquare.setBackground(new java.awt.Color(0, 0, 0));
@@ -174,13 +177,15 @@ public class WardCellJPanel extends javax.swing.JPanel {
         colourSquare.setLayout(colourSquareLayout);
         colourSquareLayout.setHorizontalGroup(
             colourSquareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
         colourSquareLayout.setVerticalGroup(
             colourSquareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        nurseRating.setBackground(new java.awt.Color(102, 102, 102));
+        nurseRating.setForeground(new java.awt.Color(242, 242, 242));
         nurseRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alert", "Verbal", "Pain", "Unresponsive" }));
         nurseRating.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +193,8 @@ public class WardCellJPanel extends javax.swing.JPanel {
             }
         });
 
-        statusText.setForeground(new java.awt.Color(0, 51, 102));
+        statusText.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        statusText.setForeground(new java.awt.Color(65, 175, 250));
         statusText.setText("Waiting for Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -196,34 +202,31 @@ public class WardCellJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(dobField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                            .addComponent(bedNumField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(wardNumField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(genderField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(patientNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(nurseRating, 0, 159, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colourSquare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(colourSquare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(dobField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bedNumField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(wardNumField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nurseRating, 0, 170, Short.MAX_VALUE)
+                            .addComponent(patientNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(11, 11, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,9 +234,9 @@ public class WardCellJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(patientNameField)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(patientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -250,12 +253,12 @@ public class WardCellJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(genderField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nurseRating, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colourSquare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(statusText)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

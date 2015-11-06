@@ -34,15 +34,16 @@ public class FlatProgressBar extends javax.swing.JPanel {
     }
 
     private void drawRoundRect(Graphics g, int width, Color colour){
+        int height = this.getHeight();
         // Prepare a red rectangle
-        BufferedImage bi = new BufferedImage(width, this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gb = bi.createGraphics();
         gb.setPaint(colour);
-        gb.fillRect(0, 0, width, this.getHeight());
+        gb.fillRect(0, 0, width, height);
         gb.dispose();
 
         // Set a rounded clipping region:
-        RoundRectangle2D r = new RoundRectangle2D.Float(0, 0, width, this.getHeight(), 10, 10);
+        RoundRectangle2D r = new RoundRectangle2D.Float(0, 0, width, height, 10, 10);
         g.setClip(r);
 
         // Draw the rectangle (and see whether it has round corners)
@@ -67,6 +68,10 @@ public class FlatProgressBar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,11 +80,12 @@ public class FlatProgressBar extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

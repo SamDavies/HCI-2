@@ -4,6 +4,10 @@
  */
 package utility;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+
 /**
  *
  * @author Qi Zhou
@@ -18,6 +22,7 @@ public class Patient {
     private int lastHR;
     private int lastBPUpper;
     private int lastBPLower;
+    public Hashtable<String, PatientData> data;
     
     public Patient(int bn, String fnm, String lnm, String g, String d, int lbr, int lhr, int lbpu, 
             int lbpl) {
