@@ -7,12 +7,15 @@ package wardView;
 
 import models.Model;
 import models.ModelSingleton;
+import patientview.PatientJFrame;
+import utility.Patient;
 import utility.PatientData;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -73,6 +76,26 @@ public class WardJFrame extends javax.swing.JFrame {
 
         if (!timer.isRunning()) {
             timer.start();
+        }
+    }
+
+    public void segueToPatient(Patient patient){
+        // get the index of the selected patient
+        int patientIndex = model.patients.indexOf(patient);
+
+        //open the Ward-View
+        PatientJFrame patientFrame;
+        try {
+            patientFrame = new PatientJFrame();
+            // select the patient
+            this.model.selectedPatient = patientIndex;
+            patientFrame.setPatientFields(patientIndex);
+            // make the frame visible
+            patientFrame.setVisible(true);
+            //dispose current window
+            this.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

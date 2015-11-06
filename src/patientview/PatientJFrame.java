@@ -89,7 +89,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void setPatientFields(int patientNumber) {
+    public void setPatientFields(int patientNumber) {
         Patient patient = model.patients.get(patientNumber);
 
         patientNameField.setText(patient.getFistName() + " " + patient.getLastName());
@@ -378,11 +378,11 @@ public class PatientJFrame extends javax.swing.JFrame {
 
     private void jButton_changeViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_changeViewActionPerformed
         // TODO add your handling code here:
-        //dispose current window
-        this.dispose();
         //open the Ward-View
         WardJFrame wardframe = new WardJFrame();
         wardframe.setVisible(true);
+        //dispose current window
+        this.dispose();
     }//GEN-LAST:event_jButton_changeViewActionPerformed
 
     private void jButton_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exitActionPerformed
