@@ -46,14 +46,8 @@ public class WardCellJPanel extends javax.swing.JPanel {
                     SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
                     // do it every 5 seconds
                     if (timerSeconds % 5 == 0) {
-                        //generate random value
-                        int br = RandomData.generateReading(Model.RESPIRATORY_RATE);
-                        int spo2 = RandomData.generateReading(Model.SPO2);
-                        float temp = RandomData.generateReading(Model.TEMPERATURE);
-                        int systolic = RandomData.generateReading(Model.SYSTOLIC);
-                        int hr = RandomData.generateReading(Model.HEART_RATE);
-
-                        PatientData patientData = new PatientData(br, spo2, temp, systolic, hr);
+                        String key = Integer.toString((timerSeconds % 3600) + 5);
+                        PatientData patientData = patient.data.get(key);
                         int score = patientData.getScore();
                         setScore(score);
                         setNurseScore(score + nurseScore);
