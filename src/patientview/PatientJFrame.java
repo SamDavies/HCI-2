@@ -13,8 +13,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +54,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         this.setLocation(x, y);
 
         // set the initial patient
-        this.setPatientFields(model.selectedPatient);
+        this.setPatientFields();
 
         //set focus on exit button
         jButton_exit.requestFocus();
@@ -68,15 +71,8 @@ public class PatientJFrame extends javax.swing.JFrame {
                     jLabel_systemTime.setText(sdf.format(cal.getTime()));
                     // do it every 5 seconds
                     if (timerSeconds % 5 == 0) {
-                        //generate random value
-                        int br = RandomData.generateReading(Model.RESPIRATORY_RATE);
-                        int spo2 = RandomData.generateReading(Model.SPO2);
-                        float temp = RandomData.generateReading(Model.TEMPERATURE);
-                        int systolic = RandomData.generateReading(Model.SYSTOLIC);
-                        int hr = RandomData.generateReading(Model.HEART_RATE);
-
-                        PatientData patientData = new PatientData(br, spo2, temp, systolic, hr);
-                        displayData(patientData);
+                        String key = Integer.toString((timerSeconds % 3600) + 5);
+                        displayData(model.getSelectedPatient().data.get(key));
                     }
                     timerSeconds++;
                 }
@@ -88,8 +84,8 @@ public class PatientJFrame extends javax.swing.JFrame {
         }
     }
 
-    public void setPatientFields(int patientNumber) {
-        Patient patient = model.patients.get(patientNumber);
+    public void setPatientFields() {
+        Patient patient = model.getSelectedPatient();
 
         patientNameField.setText(patient.getFistName() + " " + patient.getLastName());
         wardNumField.setText("W001");
@@ -556,7 +552,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         model.selectedPatient += 5;
         // modulus 6
         model.selectedPatient %= 6;
-        this.setPatientFields(model.selectedPatient);
+        this.setPatientFields();
     }//GEN-LAST:event_previousPatientActionPerformed
 
     private void nextPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPatientActionPerformed
@@ -565,7 +561,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         model.selectedPatient ++;
         // modulus 6
         model.selectedPatient %= 6;
-        this.setPatientFields(model.selectedPatient);
+        this.setPatientFields();
     }//GEN-LAST:event_nextPatientActionPerformed
 
     private void jButton_changeViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_changeViewActionPerformed

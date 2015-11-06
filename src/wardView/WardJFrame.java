@@ -89,7 +89,7 @@ public class WardJFrame extends javax.swing.JFrame {
             patientFrame = new PatientJFrame();
             // select the patient
             this.model.selectedPatient = patientIndex;
-            patientFrame.setPatientFields(patientIndex);
+            patientFrame.setPatientFields();
             // make the frame visible
             patientFrame.setVisible(true);
             //dispose current window
