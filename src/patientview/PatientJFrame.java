@@ -4,6 +4,7 @@
  */
 package patientview;
 
+import historyView.HistoryJFrame;
 import models.Model;
 import models.ModelSingleton;
 import utility.Patient;
@@ -61,7 +62,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         //set timer
         timerSeconds = 0;
         if (timer == null) {
-            timer = new Timer(100, new ActionListener() {
+            timer = new Timer(500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // do it every 1 second
@@ -159,18 +160,20 @@ public class PatientJFrame extends javax.swing.JFrame {
         jButton_exit = new javax.swing.JButton();
         jButton_changeView = new javax.swing.JButton();
         jPanel_title = new javax.swing.JPanel();
-        jLabel_systemTime = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         patientNameField = new javax.swing.JLabel();
-        wardNumField = new javax.swing.JLabel();
-        bedNumField = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         dobField = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         genderField = new javax.swing.JLabel();
-        nextPatient = new javax.swing.JButton();
+        jLabel_systemTime = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        viewHistory = new javax.swing.JButton();
+        wardNumField = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         previousPatient = new javax.swing.JButton();
+        nextPatient = new javax.swing.JButton();
+        bedNumField = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel9.setText("jLabel9");
 
@@ -352,18 +355,26 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel_buttons.setBackground(new java.awt.Color(65, 65, 65));
+        jPanel_buttons.setBackground(new java.awt.Color(65, 175, 250));
 
+        jButton_exit.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jButton_exit.setForeground(new java.awt.Color(255, 255, 255));
         jButton_exit.setText("Exit");
         jButton_exit.setBorderPainted(false);
+        jButton_exit.setContentAreaFilled(false);
+        jButton_exit.setFocusPainted(false);
         jButton_exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_exitActionPerformed(evt);
             }
         });
 
+        jButton_changeView.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jButton_changeView.setForeground(new java.awt.Color(255, 255, 255));
         jButton_changeView.setText("Ward View");
         jButton_changeView.setBorderPainted(false);
+        jButton_changeView.setContentAreaFilled(false);
+        jButton_changeView.setFocusPainted(false);
         jButton_changeView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_changeViewActionPerformed(evt);
@@ -375,46 +386,22 @@ public class PatientJFrame extends javax.swing.JFrame {
         jPanel_buttonsLayout.setHorizontalGroup(
             jPanel_buttonsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel_buttonsLayout.createSequentialGroup()
-                .add(jButton_changeView, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton_exit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .add(jButton_changeView, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 153, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton_exit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel_buttonsLayout.createSequentialGroup()
-                .add(jPanel_buttonsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jButton_changeView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jButton_exit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(0, 12, Short.MAX_VALUE))
+            .add(jButton_changeView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+            .add(jButton_exit, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel_title.setBackground(new java.awt.Color(65, 65, 65));
         jPanel_title.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_systemTime.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel_systemTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_systemTime.setText("TIME");
-
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel2.setText("WARD NUMBER:");
-
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel3.setText("BED NUMBER:");
-
-        patientNameField.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        patientNameField.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         patientNameField.setForeground(new java.awt.Color(65, 175, 250));
         patientNameField.setText("jLabel");
-
-        wardNumField.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        wardNumField.setForeground(new java.awt.Color(242, 242, 242));
-        wardNumField.setText("jLabel");
-
-        bedNumField.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        bedNumField.setForeground(new java.awt.Color(242, 242, 242));
-        bedNumField.setText("jLabel");
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
@@ -432,27 +419,78 @@ public class PatientJFrame extends javax.swing.JFrame {
         genderField.setForeground(new java.awt.Color(242, 242, 242));
         genderField.setText("jLabel");
 
+        jLabel_systemTime.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel_systemTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_systemTime.setText("TIME");
+
+        jPanel2.setBackground(new java.awt.Color(66, 66, 66));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        viewHistory.setBackground(new java.awt.Color(65, 65, 65));
+        viewHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_240@2x.png"))); // NOI18N
+        viewHistory.setBorderPainted(false);
+        viewHistory.setContentAreaFilled(false);
+        viewHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewHistoryActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(viewHistory)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(viewHistory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        wardNumField.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        wardNumField.setForeground(new java.awt.Color(242, 242, 242));
+        wardNumField.setText("jLabel");
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel2.setText("WARD:");
+
         org.jdesktop.layout.GroupLayout jPanel_titleLayout = new org.jdesktop.layout.GroupLayout(jPanel_title);
         jPanel_title.setLayout(jPanel_titleLayout);
         jPanel_titleLayout.setHorizontalGroup(
             jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel_titleLayout.createSequentialGroup()
+            .add(jPanel_titleLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(patientNameField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel_systemTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel_titleLayout.createSequentialGroup()
+                .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel_systemTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel_titleLayout.createSequentialGroup()
                         .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel2)
-                            .add(jLabel3)
-                            .add(jLabel4)
-                            .add(jLabel5))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(wardNumField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(bedNumField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(dobField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(genderField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .add(jPanel_titleLayout.createSequentialGroup()
+                                .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(patientNameField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(jPanel_titleLayout.createSequentialGroup()
+                                        .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
+                                        .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, dobField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, genderField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .add(60, 60, 60)))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                            .add(jPanel_titleLayout.createSequentialGroup()
+                                .add(jLabel2)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(wardNumField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(113, 113, 113)))
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(12, 12, 12)))
                 .addContainerGap())
         );
         jPanel_titleLayout.setVerticalGroup(
@@ -461,43 +499,55 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel_systemTime)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(patientNameField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(wardNumField))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(bedNumField))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel4)
-                    .add(dobField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5)
-                    .add(genderField))
-                .addContainerGap())
+                    .add(jPanel_titleLayout.createSequentialGroup()
+                        .add(patientNameField)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel2)
+                            .add(wardNumField))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel4)
+                            .add(dobField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel_titleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel5)
+                            .add(genderField)))
+                    .add(jPanel_titleLayout.createSequentialGroup()
+                        .add(33, 33, 33)
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        previousPatient.setBackground(new java.awt.Color(65, 65, 65));
+        previousPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_001@2x.png"))); // NOI18N
+        previousPatient.setBorderPainted(false);
+        previousPatient.setContentAreaFilled(false);
+        previousPatient.setFocusPainted(false);
+        previousPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousPatientActionPerformed(evt);
+            }
+        });
 
         nextPatient.setBackground(new java.awt.Color(65, 65, 65));
         nextPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_002@2x.png"))); // NOI18N
         nextPatient.setBorderPainted(false);
+        nextPatient.setContentAreaFilled(false);
         nextPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextPatientActionPerformed(evt);
             }
         });
 
-        previousPatient.setBackground(new java.awt.Color(65, 65, 65));
-        previousPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_001@2x.png"))); // NOI18N
-        previousPatient.setBorderPainted(false);
-        previousPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                previousPatientActionPerformed(evt);
-            }
-        });
+        bedNumField.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        bedNumField.setForeground(new java.awt.Color(242, 242, 242));
+        bedNumField.setText("jLabel");
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel3.setText("BED");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -505,31 +555,41 @@ public class PatientJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(jPanel_title, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jPanel_readings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jPanel1Layout.createSequentialGroup()
-                            .add(previousPatient, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(36, 36, 36)
-                            .add(nextPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(previousPatient)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(bedNumField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(63, 63, 63)
+                        .add(nextPatient))
+                    .add(jPanel_title, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel_readings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(12, 12, 12)
                 .add(jPanel_title, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel_readings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(67, 67, 67)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(previousPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(nextPatient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(20, 20, 20)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(previousPatient)
+                            .add(nextPatient))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel3)
+                            .add(bedNumField))
+                        .add(36, 36, 36)))
+                .add(jPanel_buttons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -577,6 +637,14 @@ public class PatientJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton_exitActionPerformed
+
+    private void viewHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewHistoryActionPerformed
+        // TODO add your handling code here:
+        HistoryJFrame historyframe = new HistoryJFrame();
+        historyframe.setVisible(true);
+        //dispose current window
+        this.dispose();
+    }//GEN-LAST:event_viewHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -648,6 +716,7 @@ public class PatientJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_systemTime;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel_buttons;
     private javax.swing.JPanel jPanel_readings;
     private javax.swing.JPanel jPanel_title;
@@ -658,6 +727,7 @@ public class PatientJFrame extends javax.swing.JFrame {
     private javax.swing.JButton previousPatient;
     private patientview.FlatProgressBar temperatureBar;
     private javax.swing.JLabel temperatureField;
+    private javax.swing.JButton viewHistory;
     private javax.swing.JLabel wardNumField;
     // End of variables declaration//GEN-END:variables
 }

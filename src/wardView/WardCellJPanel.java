@@ -37,7 +37,7 @@ public class WardCellJPanel extends javax.swing.JPanel {
         //set timer
         timerSeconds = 0;
         if (timer == null) {
-            timer = new Timer(100, new ActionListener() {
+            timer = new Timer(500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // do it every 1 second
